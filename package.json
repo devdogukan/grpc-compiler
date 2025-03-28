@@ -14,19 +14,37 @@
   "contributes": {
     "commands": [
       {
-        "command": "grpc-compiler.compileProto",
-        "title": "Compile Proto for gRPC"
+        "command": "grpc-compiler.compileProtoGo",
+        "title": "Go"
+      },
+      {
+        "command": "grpc-compiler.compileProtoPython",
+        "title": "Python"
       }
     ],
     "menus": {
       "explorer/context": [
         {
           "when": "resourceExtname == .proto",
-          "command": "grpc-compiler.compileProto",
+          "submenu": "grpc.compile",
           "group": "navigation"
         }
+      ],
+      "grpc.compile": [
+        {
+          "command": "grpc-compiler.compileProtoGo"
+        },
+        {
+          "command": "grpc-compiler.compileProtoPython"
+        }
       ]
-    }
+    },
+    "submenus": [
+      {
+        "id": "grpc.compile",
+        "label": "Compile Proto for gRPC"
+      }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
