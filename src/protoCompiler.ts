@@ -26,7 +26,7 @@ abstract class BaseProtoCompiler implements IProtoCompiler {
 // Go Proto Compiler Implementation
 class GoProtoCompiler extends BaseProtoCompiler {
     async compile(): Promise<void> {
-        const command = `protoc --go_out=${this.protoDir} --go-grpc_out=${this.protoDir} ${this.protoPath}`;
+        const command = `protoc --proto_path=${path.dirname(this.protoPath)} --go_out=${path.dirname(this.protoPath)} --go_opt=paths=source_relative --go-grpc_out=${path.dirname(this.protoPath)} --go-grpc_opt=paths=source_relative ${path.basename(this.protoPath)}`;
         return new Promise((resolve, reject) => {
             cp.exec(command, (error) => {
                 if (error) {
