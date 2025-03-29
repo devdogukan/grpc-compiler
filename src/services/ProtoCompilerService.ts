@@ -1,13 +1,14 @@
 import * as vscode from 'vscode';
 import * as cp from 'child_process';
 import { ProtoCompilerFactory } from './ProtoCompilerFactory';
+import { SupportedLanguages } from '../constants/SupportedLanguages';
 
 class ProtoCompilerService {
-    async compileProto(type: 'go' | 'python', protoPath: string): Promise<void> {
+    async compileProto(type: SupportedLanguages, protoPath: string): Promise<void> {
         const compiler = ProtoCompilerFactory.createCompiler(type, protoPath);
         
         if (!(await compiler.checkDependencies())) {
-            if (type === 'python') {
+            if (type === SupportedLanguages.Python) {
                 const install = await vscode.window.showErrorMessage(
                     'grpcio-tools is not installed. Would you like to install it?',
                     'Yes', 'No'

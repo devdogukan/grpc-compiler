@@ -2,6 +2,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import { ProtoCompilerService } from './services/ProtoCompilerService';
+import { SupportedLanguages } from './constants/SupportedLanguages';
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -13,20 +14,20 @@ export function activate(context: vscode.ExtensionContext) {
 
 	const compilerService = new ProtoCompilerService();
 
-	// Go için compile komutu
+	// compile command for Go
 	let goDisposable = vscode.commands.registerCommand('grpc-compiler.compileProtoGo', async (uri: vscode.Uri) => {
 		try {
-			await compilerService.compileProto('go', uri.fsPath);
+			await compilerService.compileProto(SupportedLanguages.Go, uri.fsPath);
 			vscode.window.showInformationMessage('Proto file successfully compiled for Go gRPC');
 		} catch (error: any) {
 			vscode.window.showErrorMessage(`Failed to compile proto: ${error.message}`);
 		}
 	});
 
-	// Python için compile komutu
+	// compile command for Python
 	let pythonDisposable = vscode.commands.registerCommand('grpc-compiler.compileProtoPython', async (uri: vscode.Uri) => {
 		try {
-			await compilerService.compileProto('python', uri.fsPath);
+			await compilerService.compileProto(SupportedLanguages.Python, uri.fsPath);
 			vscode.window.showInformationMessage('Proto file successfully compiled for Python gRPC');
 		} catch (error: any) {
 			vscode.window.showErrorMessage(`Failed to compile proto: ${error.message}`);
