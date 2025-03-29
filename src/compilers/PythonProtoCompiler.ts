@@ -1,6 +1,7 @@
-import * as cp from 'child_process';
-import * as os from 'os';
-import { BaseProtoCompiler } from './BaseProtoCompiler';
+import * as cp from "child_process";
+import { BaseProtoCompiler } from "./BaseProtoCompiler";
+import { PlatformHelper } from "../utils/PlatformHelper";
+import { Logger } from "../utils/Logger";
 
 class PythonProtoCompiler extends BaseProtoCompiler {
     private pythonCmd: string;
@@ -8,27 +9,34 @@ class PythonProtoCompiler extends BaseProtoCompiler {
     constructor(protoPath: string) {
         super(protoPath);
         this.pythonCmd = this.getPythonCommand();
+        Logger.log(`PythonProtoCompiler initialized with command: ${this.pythonCmd}`);
     }
 
     private getPythonCommand(): string {
-        switch (os.platform()) {
-            case 'win32':
-                return 'python';
-            case 'darwin':
-            case 'linux':
-                return 'python3';
+        switch (PlatformHelper.getPlatform()) {
+            case "Windows":
+                return "python"; // Varsayılan olarak Python PATH'te olmalı
+            case "macOS":
+            case "Linux":
+                return "python3"; // macOS ve Linux için Python3 kullanılmalı
             default:
-                return 'python';
+                throw new Error("Unsupported platform for Python command detection");
         }
     }
 
     async compile(): Promise<void> {
+        Logger.log(`Starting Python protobuf compilation for: ${this.protoPath}`);
+
         const command = `${this.pythonCmd} -m grpc_tools.protoc -I${this.protoDir} --python_out=${this.protoDir} --grpc_python_out=${this.protoDir} ${this.protoPath}`;
+
         return new Promise((resolve, reject) => {
-            cp.exec(command, (error) => {
+            cp.exec(command, (error, stdout, stderr) => {
                 if (error) {
-                    reject(error);
+                    Logger.error(`Compilation failed: ${stderr}`);
+                    reject(new Error(`Python gRPC compilation failed. Error: ${stderr || error.message}`));
                 } else {
+                    Logger.log("Python protobuf compilation successful.");
+                    Logger.log(`stdout: ${stdout}`);
                     resolve();
                 }
             });
@@ -36,9 +44,19 @@ class PythonProtoCompiler extends BaseProtoCompiler {
     }
 
     async checkDependencies(): Promise<boolean> {
+        Logger.log("Checking Python gRPC dependencies...");
+
         return new Promise((resolve) => {
             cp.exec(`${this.pythonCmd} -c "import grpc_tools.protoc"`, (error) => {
-                resolve(!error);
+                if (error) {
+                    Logger.error(
+                        "Missing dependency: grpc_tools.protoc. Install it using: pip install grpcio-tools"
+                    );
+                    resolve(false);
+                } else {
+                    Logger.log("All Python gRPC dependencies are installed.");
+                    resolve(true);
+                }
             });
         });
     }
