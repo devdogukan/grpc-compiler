@@ -1,71 +1,92 @@
-# grpc-compiler README
+# gRPC Compiler
 
-This is the README for your extension "grpc-compiler". After writing up a brief description, we recommend including the following sections.
+A Visual Studio Code extension for compiling Protocol Buffers (.proto) files to gRPC code in multiple programming languages.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+This extension allows you to easily compile .proto files to generate gRPC client and server code directly from the VS Code explorer context menu.
 
-For example if there is an image subfolder under your extension project workspace:
+Simply right-click on any .proto file and select "Compile Proto for gRPC" to generate code in your desired language.
 
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+Currently supported languages:
+- [Go](#go)
+- [Python](#python)
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+For this extension to work properly, you need to have the following dependencies installed for each supported language:
+
+### Protocol Buffers Compiler (protoc)
+
+The Protocol Buffers compiler is required for all supported languages. Here's how to install it on different platforms:
+
+#### Windows
+- Download the pre-built binary from the [Protocol Buffers GitHub releases](https://github.com/protocolbuffers/protobuf/releases)
+- Extract the zip file and add the `bin` directory to your PATH
+
+#### macOS
+- Install using Homebrew:
+  ```
+  brew install protobuf
+  ```
+
+#### Linux
+- Install using your package manager, for example on Ubuntu:
+  ```
+  sudo apt-get install -y protobuf-compiler
+  ```
+
+### Go
+
+- **Protocol Buffers compiler** (`protoc`)
+  - Must be installed and available in your PATH
+- **Go Plugin for Protocol Buffers** (`protoc-gen-go`)
+  - Install using: 
+    ```
+    go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+    ```
+- **Go gRPC Plugin** (`protoc-gen-go-grpc`)
+  - Install using:
+    ```
+    go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+    ```
+
+### Python
+
+- **Python 3.x**
+- **gRPC tools**
+  - Install using:
+    ```
+    pip install grpcio grpcio-tools
+    ```
+
+The extension will check for these dependencies and offer to install them if they are missing.
+
+## How To Use
+
+1. Open a project containing .proto files
+2. Right-click on any .proto file in the explorer
+3. Select "Compile Proto for gRPC" from the context menu
+4. Choose the target language (Go or Python)
+5. The compiler will generate the appropriate files in the same directory as the .proto file
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+This extension currently doesn't have any configurable settings.
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+- The extension requires all dependencies to be properly installed and available in the system PATH
+- Complex proto imports may require manual configuration
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+### 0.0.1
 
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+Initial release with support for:
+- Go gRPC code generation
+- Python gRPC code generation
 
 ---
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
 
 **Enjoy!**
