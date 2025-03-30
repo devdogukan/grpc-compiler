@@ -1,11 +1,15 @@
+codeignore
 .vscode/**
 .vscode-test/**
 src/**
 .gitignore
 .yarnrc
+webpack.config.js
 vsc-extension-quickstart.md
 **/tsconfig.json
-**/eslint.config.mjs
+**/.eslintrc.json
 **/*.map
 **/*.ts
-**/.vscode-test.*
+node_modules/**
+!node_modules/gerekli-modul-1/**
+!node_modules/gerekli-modul-2/**
