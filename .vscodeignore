@@ -13,3 +13,4 @@ vsc-extension-quickstart.md
 node_modules/**
 !node_modules/gerekli-modul-1/**
 !node_modules/gerekli-modul-2/**
+.github/**

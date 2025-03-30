@@ -1,5 +1,8 @@
 # gRPC Compiler
 
+![Build & Test](https://github.com/devdogukan/grpc-compiler/workflows/Build%20&%20Test/badge.svg)
+[![Version](https://img.shields.io/visual-studio-marketplace/v/devdogukan.grpc-compiler)](https://marketplace.visualstudio.com/items?itemName=devdogukan.grpc-compiler)
+
 A Visual Studio Code extension for compiling Protocol Buffers (.proto) files to gRPC code in multiple programming languages.
 
 ## Features
