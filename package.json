@@ -6,6 +6,8 @@
   "engines": {
     "vscode": "^1.98.0"
   },
+  "icon": "images/icon.png",
+  "publisher": "devdogukan",
   "repository": {
     "type": "git",
     "url": "https://github.com/devdogukan/grpc-compiler"
