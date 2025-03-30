@@ -26,6 +26,10 @@
       {
         "command": "grpc-compiler.compileProtoPython",
         "title": "Python"
+      },
+      {
+        "command": "grpc-compiler.compileProtoJava",
+        "title": "Java"
       }
     ],
     "menus": {
@@ -42,6 +46,9 @@
         },
         {
           "command": "grpc-compiler.compileProtoPython"
+        },
+        {
+          "command": "grpc-compiler.compileProtoJava"
         }
       ]
     },
