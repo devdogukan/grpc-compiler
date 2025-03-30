@@ -34,8 +34,19 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 	});
 
+	// compile command for Java
+	let javaDisposable = vscode.commands.registerCommand('grpc-compiler.compileProtoJava', async (uri: vscode.Uri) => {
+		try {
+			await compilerService.compileProto(SupportedLanguages.Java, uri.fsPath);
+			vscode.window.showInformationMessage('Proto file successfully compiled for Java gRPC');
+		} catch (error: any) {
+			vscode.window.showErrorMessage(`Failed to compile proto: ${error.message}`);
+		}
+	});
+
 	context.subscriptions.push(goDisposable);
 	context.subscriptions.push(pythonDisposable);
+	context.subscriptions.push(javaDisposable);
 }
 
 // This method is called when your extension is deactivated

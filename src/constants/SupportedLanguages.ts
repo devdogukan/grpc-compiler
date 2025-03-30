@@ -1,4 +1,5 @@
 export enum SupportedLanguages {
     Go = 'go', 
-    Python = 'python'
+    Python = 'python',
+    Java = 'java',
 }
