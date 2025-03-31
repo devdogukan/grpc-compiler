@@ -1,9 +1,13 @@
 # Change Log
 
-All notable changes to the "grpc-compiler" extension will be documented in this file.
+All notable changes to the "gRPC Compiler" extension will be documented in this file.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+## [0.1.0] - 2025-03-31
 
-## [Unreleased]
+### Added
+- Add support for generating Java code from .proto files
 
-- Initial release
+## [0.0.1] - 2025-03-30
+### Added
+- Initial release with support for Go and Python
+- Add support for generating Go code from .proto files

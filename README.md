@@ -14,6 +14,7 @@ Simply right-click on any .proto file and select "Compile Proto for gRPC" to gen
 Currently supported languages:
 - [Go](#go)
 - [Python](#python)
+- [Java](#java)
 
 ## Requirements
 
@@ -63,6 +64,40 @@ The Protocol Buffers compiler is required for all supported languages. Here's ho
     pip install grpcio grpcio-tools
     ```
 
+### Java
+
+- **Java Development Kit (JDK)**
+  - Must be installed and available in your PATH
+- **Protocol Buffers compiler** (`protoc`)
+  - Must be installed and available in your PATH
+- **Maven or Gradle project** with the following dependencies:
+  - For Maven (in pom.xml):
+    ```xml
+    <dependency>
+        <groupId>com.google.protobuf</groupId>
+        <artifactId>protobuf-java</artifactId>
+        <version>3.21.7</version>
+    </dependency>
+    <dependency>
+        <groupId>io.grpc</groupId>
+        <artifactId>grpc-protobuf</artifactId>
+        <version>1.53.0</version>
+    </dependency>
+    <dependency>
+        <groupId>io.grpc</groupId>
+        <artifactId>grpc-stub</artifactId>
+        <version>1.53.0</version>
+    </dependency>
+    ```
+  - For Gradle (in build.gradle):
+    ```groovy
+    dependencies {
+        implementation 'com.google.protobuf:protobuf-java:3.21.7'
+        implementation 'io.grpc:grpc-protobuf:1.53.0'
+        implementation 'io.grpc:grpc-stub:1.53.0'
+    }
+    ```
+
 The extension will check for these dependencies and offer to install them if they are missing.
 
 ## How To Use
@@ -70,7 +105,7 @@ The extension will check for these dependencies and offer to install them if the
 1. Open a project containing .proto files
 2. Right-click on any .proto file in the explorer
 3. Select "Compile Proto for gRPC" from the context menu
-4. Choose the target language (Go or Python)
+4. Choose the target language (Go, Python, or Java)
 5. The compiler will generate the appropriate files in the same directory as the .proto file
 
 ## Extension Settings
@@ -81,14 +116,11 @@ This extension currently doesn't have any configurable settings.
 
 - The extension requires all dependencies to be properly installed and available in the system PATH
 - Complex proto imports may require manual configuration
+- For Java compilation, a Maven or Gradle project with the required dependencies must exist in the parent directories
 
 ## Release Notes
 
-### 0.0.1
-
-Initial release with support for:
-- Go gRPC code generation
-- Python gRPC code generation
+See the [CHANGELOG.md](CHANGELOG.md) for release notes details.
 
 ---
 
