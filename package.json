@@ -1,10 +1,13 @@
 {
   "name": "grpc-compiler",
   "displayName": "gRPC Compiler",
-  "description": "Compile proto file for gRPC",
+  "description": "Compile .proto files for gRPC",
   "version": "0.1.0",
   "engines": {
     "vscode": "^1.98.0"
+  },
+  "author": {
+    "name": "devdogukan"
   },
   "icon": "images/icon.png",
   "publisher": "devdogukan",
@@ -13,9 +16,27 @@
     "url": "https://github.com/devdogukan/grpc-compiler"
   },
   "categories": [
+    "Programming Languages",
     "Other"
   ],
-  "activationEvents": [],
+  "keywords": [
+    "vscode",
+    "grpc",
+    "compiler",
+    "proto",
+    "protobuf",
+    "protoc",
+    "protoc-gen-go",
+    "protoc-gen-python",
+    "protoc-gen-java"
+  ],
+  "license": "MIT",
+  "pricing": "Free",
+  "galleryBanner": {
+    "color": "#000000",
+    "theme": "dark"
+  },
+  "homepage": "https://github.com/devdogukan/grpc-compiler",
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
@@ -37,7 +58,7 @@
         {
           "when": "resourceExtname == .proto",
           "submenu": "grpc.compile",
-          "group": "navigation"
+          "group": "2_grpc-compiler"
         }
       ],
       "grpc.compile": [
