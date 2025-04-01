@@ -14,6 +14,5 @@ export class Logger {
         if (error) {
             this.outputChannel.appendLine(`[ERROR] Stack: ${error.stack}`);
         }
-        vscode.window.showErrorMessage(`❌ ${message}`);
     }
 }

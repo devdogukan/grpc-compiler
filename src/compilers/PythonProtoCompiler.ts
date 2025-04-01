@@ -15,10 +15,10 @@ class PythonProtoCompiler extends BaseProtoCompiler {
     private getPythonCommand(): string {
         switch (PlatformHelper.getPlatform()) {
             case "Windows":
-                return "python"; // Varsayılan olarak Python PATH'te olmalı
+                return "python";
             case "macOS":
             case "Linux":
-                return "python3"; // macOS ve Linux için Python3 kullanılmalı
+                return "python3";
             default:
                 throw new Error("Unsupported platform for Python command detection");
         }
