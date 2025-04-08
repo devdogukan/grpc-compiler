@@ -55,6 +55,8 @@ The Protocol Buffers compiler is required for all supported languages. Here's ho
     go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
     ```
 
+![Go gRPC Compilation Demo](media/go-grpc.gif)
+
 ### Python
 
 - **Python 3.x**
@@ -63,6 +65,8 @@ The Protocol Buffers compiler is required for all supported languages. Here's ho
     ```
     pip install grpcio grpcio-tools
     ```
+
+![Python gRPC Compilation Demo](media/python-grpc.gif)
 
 ### Java
 
