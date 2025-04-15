@@ -2,8 +2,11 @@
 
 All notable changes to the "gRPC Compiler" extension will be documented in this file.
 
-## [0.1.0] - 2025-03-31
+## [0.2.0] - 2025-04-15
+### Added
+- Add support for generating Ruby code from .proto files
 
+## [0.1.0] - 2025-03-31
 ### Added
 - Add support for generating Java code from .proto files
 
