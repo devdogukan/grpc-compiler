@@ -7,21 +7,10 @@ class ProtoCompilerService {
     async compileProto(type: SupportedLanguages, protoPath: string): Promise<void> {
         const compiler = ProtoCompilerFactory.createCompiler(type, protoPath);
         
-        if (!(await compiler.checkDependencies())) {
-            if (type === SupportedLanguages.Python) {
-                const install = await vscode.window.showErrorMessage(
-                    'grpcio-tools is not installed. Would you like to install it?',
-                    'Yes', 'No'
-                );
-                
-                if (install === 'Yes') {
-                    await this.installPythonDependencies();
-                } else {
-                    throw new Error('Required dependencies not installed');
-                }
-            } else {
-                throw new Error('protoc is not installed. Please install Protocol Buffers compiler.');
-            }
+        // check dependencies
+        const hasDependencies = await compiler.checkDependencies();
+        if (!hasDependencies) {
+            throw new Error('Dependencies are not installed. Please install them and try again.');
         }
 
         await compiler.compile();

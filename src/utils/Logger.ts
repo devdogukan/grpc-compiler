@@ -14,5 +14,8 @@ export class Logger {
         if (error) {
             this.outputChannel.appendLine(`[ERROR] Stack: ${error.stack}`);
         }
+
+        // write to console as well
+        console.error(`[ERROR] ${timestamp} - ${message}`);
     }
 }

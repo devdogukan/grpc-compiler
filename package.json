@@ -51,6 +51,10 @@
       {
         "command": "grpc-compiler.compileProtoJava",
         "title": "Java"
+      },
+      {
+        "command": "grpc-compiler.compileProtoRuby",
+        "title": "Ruby"
       }
     ],
     "menus": {
@@ -70,6 +74,9 @@
         },
         {
           "command": "grpc-compiler.compileProtoJava"
+        },
+        {
+          "command": "grpc-compiler.compileProtoRuby"
         }
       ]
     },

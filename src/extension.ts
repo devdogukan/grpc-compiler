@@ -43,10 +43,21 @@ export function activate(context: vscode.ExtensionContext) {
 			vscode.window.showErrorMessage(`Failed to compile proto: ${error.message}`);
 		}
 	});
+	
+	// compile command for Ruby
+	let rubyDisposable = vscode.commands.registerCommand('grpc-compiler.compileProtoRuby', async (uri: vscode.Uri) => {
+		try {
+			await compilerService.compileProto(SupportedLanguages.Ruby, uri.fsPath);
+			vscode.window.showInformationMessage('Proto file successfully compiled for Ruby gRPC');
+		} catch (error: any) {
+			vscode.window.showErrorMessage(`Failed to compile proto: ${error.message}`);
+		}
+	});
 
 	context.subscriptions.push(goDisposable);
 	context.subscriptions.push(pythonDisposable);
 	context.subscriptions.push(javaDisposable);
+	context.subscriptions.push(rubyDisposable);
 }
 
 // This method is called when your extension is deactivated
