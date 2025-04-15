@@ -5,6 +5,9 @@
 
 A Visual Studio Code extension for compiling Protocol Buffers (.proto) files to gRPC code in multiple programming languages.
 
+## How to Work
+![gRPC Compilation Demo](media/how-to-work-compiler.gif)
+
 ## Features
 
 This extension allows you to easily compile .proto files to generate gRPC client and server code directly from the VS Code explorer context menu.
@@ -15,6 +18,7 @@ Currently supported languages:
 - [Go](#go)
 - [Python](#python)
 - [Java](#java)
+- [Ruby](#ruby)
 
 ## Requirements
 
@@ -55,7 +59,7 @@ The Protocol Buffers compiler is required for all supported languages. Here's ho
     go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
     ```
 
-![Go gRPC Compilation Demo](media/go-grpc.gif)
+---
 
 ### Python
 
@@ -66,7 +70,7 @@ The Protocol Buffers compiler is required for all supported languages. Here's ho
     pip install grpcio grpcio-tools
     ```
 
-![Python gRPC Compilation Demo](media/python-grpc.gif)
+---
 
 ### Java
 
@@ -102,14 +106,36 @@ The Protocol Buffers compiler is required for all supported languages. Here's ho
     }
     ```
 
+---
+
+### Ruby
+
+- **Ruby 2.5 or newer**
+  - Must be installed and available in your PATH
+- **Protocol Buffers compiler** (`protoc`)
+  - Must be installed and available in your PATH
+- **Ruby gRPC gems**
+  - Install using:
+    ```
+    gem install grpc grpc-tools
+    ```
+
+The Ruby compiler generates the following files:
+- A `lib` directory in the same location as your .proto file
+- Ruby service files for gRPC client and server implementations
+- Ruby message classes for Protocol Buffer message types
+---
+
 The extension will check for these dependencies and offer to install them if they are missing.
+
+The generated files follow Ruby naming conventions, converting snake_case.proto files to snake_case Ruby files.
 
 ## How To Use
 
 1. Open a project containing .proto files
 2. Right-click on any .proto file in the explorer
 3. Select "Compile Proto for gRPC" from the context menu
-4. Choose the target language (Go, Python, or Java)
+4. Choose the target language (Go, Python, Java, or Ruby)
 5. The compiler will generate the appropriate files in the same directory as the .proto file
 
 ## Extension Settings
