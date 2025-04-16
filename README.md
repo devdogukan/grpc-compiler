@@ -19,6 +19,7 @@ Currently supported languages:
 - [Python](#python)
 - [Java](#java)
 - [Ruby](#ruby)
+- [Dart](#dart)
 
 ## Requirements
 
@@ -124,18 +125,38 @@ The Ruby compiler generates the following files:
 - A `lib` directory in the same location as your .proto file
 - Ruby service files for gRPC client and server implementations
 - Ruby message classes for Protocol Buffer message types
+
+The generated files follow Ruby naming conventions, converting snake_case.proto files to snake_case Ruby files.
+---
+
+### Dart
+
+- **Dart SDK**
+  - Must be installed and available in your PATH
+- **Protocol Buffers compiler** (`protoc`)
+  - Must be installed and available in your PATH
+- **Dart protoc plugin**
+  - Install using:
+    ```
+    dart pub global activate protoc_plugin
+    ```
+
+The Dart compiler generates the following files:
+- A `lib/src/generated` directory structure in the same location as your .proto file
+- Dart files for gRPC client and server implementations
+- Dart classes for Protocol Buffer message types
+
+The generated files follow Dart naming conventions, converting snake_case.proto files to snake_case.dart files.
 ---
 
 The extension will check for these dependencies and offer to install them if they are missing.
-
-The generated files follow Ruby naming conventions, converting snake_case.proto files to snake_case Ruby files.
 
 ## How To Use
 
 1. Open a project containing .proto files
 2. Right-click on any .proto file in the explorer
 3. Select "Compile Proto for gRPC" from the context menu
-4. Choose the target language (Go, Python, Java, or Ruby)
+4. Choose the target language (Go, Python, Java, Ruby, or Dart)
 5. The compiler will generate the appropriate files in the same directory as the .proto file
 
 ## Extension Settings

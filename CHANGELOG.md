@@ -2,6 +2,14 @@
 
 All notable changes to the "gRPC Compiler" extension will be documented in this file.
 
+## [0.3.0] - 2025-04-16
+### Added
+- Add support for generating Dart code from .proto files
+
+### Changed
+- Improve error handling for invalid .proto files
+- Optimize code generation process for better performance
+
 ## [0.2.0] - 2025-04-15
 ### Added
 - Add support for generating Ruby code from .proto files
