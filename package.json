@@ -55,6 +55,10 @@
       {
         "command": "grpc-compiler.compileProtoRuby",
         "title": "Ruby"
+      },
+      {
+        "command": "grpc-compiler.compileProtoDart",
+        "title": "Dart"
       }
     ],
     "menus": {
@@ -77,6 +81,9 @@
         },
         {
           "command": "grpc-compiler.compileProtoRuby"
+        },
+        {
+          "command": "grpc-compiler.compileProtoDart"
         }
       ]
     },

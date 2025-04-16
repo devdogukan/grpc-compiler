@@ -54,10 +54,21 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 	});
 
+	// compile command for Dart
+	let dartDisposable = vscode.commands.registerCommand('grpc-compiler.compileProtoDart', async (uri: vscode.Uri) => {
+		try {
+			await compilerService.compileProto(SupportedLanguages.Dart, uri.fsPath);
+			vscode.window.showInformationMessage('Proto file successfully compiled for Dart gRPC');
+		} catch (error: any) {
+			vscode.window.showErrorMessage(`Failed to compile proto: ${error.message}`);
+		}
+	});
+
 	context.subscriptions.push(goDisposable);
 	context.subscriptions.push(pythonDisposable);
 	context.subscriptions.push(javaDisposable);
 	context.subscriptions.push(rubyDisposable);
+	context.subscriptions.push(dartDisposable);
 }
 
 // This method is called when your extension is deactivated

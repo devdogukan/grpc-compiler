@@ -1,9 +1,10 @@
-import { IProtoCompiler } from '../compilers/IProtoCompiler';
-import { GoProtoCompiler } from '../compilers/GoProtoCompiler';
-import { PythonProtoCompiler } from '../compilers/PythonProtoCompiler';
+import { IProtoCompiler, 
+    GoProtoCompiler, 
+    PythonProtoCompiler, 
+    JavaProtoCompiler, 
+    RubyProtoCompiler, 
+    DartProtoCompiler } from '../compilers';
 import { SupportedLanguages } from '../constants/SupportedLanguages';
-import { JavaProtoCompiler } from '../compilers/JavaProtoCompiler';
-import { RubyProtoCompiler } from '../compilers/RubyProtoCompiler';
 
 class ProtoCompilerFactory {
     static createCompiler(type: SupportedLanguages, protoPath: string): IProtoCompiler {
@@ -16,6 +17,8 @@ class ProtoCompilerFactory {
                 return new JavaProtoCompiler(protoPath);
             case SupportedLanguages.Ruby:
                 return new RubyProtoCompiler(protoPath);
+            case SupportedLanguages.Dart:
+                return new DartProtoCompiler(protoPath);
             default:
                 throw new Error('Unsupported compiler type');
         }

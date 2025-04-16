@@ -3,4 +3,5 @@ export enum SupportedLanguages {
     Python = 'python',
     Java = 'java',
     Ruby = 'ruby',
+    Dart = 'dart',
 }
