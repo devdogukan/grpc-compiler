@@ -3,6 +3,7 @@
 import * as vscode from 'vscode';
 import { ProtoCompilerService } from './services/ProtoCompilerService';
 import { SupportedLanguages } from './constants/SupportedLanguages';
+import { Logger } from './utils/Logger';
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -14,13 +15,36 @@ export function activate(context: vscode.ExtensionContext) {
 
 	const compilerService = new ProtoCompilerService();
 
+	// Helper function for displaying appropriate error messages
+	const handleCompilationError = (error: any, language: string): void => {
+		Logger.error(`Failed to compile proto for ${language}`, error);
+		
+		// Check for specific error types to provide helpful messages
+		if (error.message.includes("not installed") || error.message.includes("missing") || error.message.includes("Dependencies")) {
+			// Dependency missing error
+			const detailedMessage = `Failed to compile proto for ${language}: ${error.message}\n\nPlease check that all required dependencies are installed. See README for installation instructions.`;
+			vscode.window.showErrorMessage(detailedMessage, 'Open Documentation').then(selection => {
+				if (selection === 'Open Documentation') {
+					vscode.env.openExternal(vscode.Uri.parse('https://github.com/devdogukan/grpc-compiler#requirements'));
+				}
+			});
+		} else {
+			// Generic compilation error
+			vscode.window.showErrorMessage(`Failed to compile proto for ${language}: ${error.message}`, 'Show Details').then(selection => {
+				if (selection === 'Show Details') {
+					Logger.outputChannel.show();
+				}
+			});
+		}
+	};
+
 	// compile command for Go
 	let goDisposable = vscode.commands.registerCommand('grpc-compiler.compileProtoGo', async (uri: vscode.Uri) => {
 		try {
 			await compilerService.compileProto(SupportedLanguages.Go, uri.fsPath);
 			vscode.window.showInformationMessage('Proto file successfully compiled for Go gRPC');
 		} catch (error: any) {
-			vscode.window.showErrorMessage(`Failed to compile proto: ${error.message}`);
+			handleCompilationError(error, 'Go');
 		}
 	});
 
@@ -30,7 +54,7 @@ export function activate(context: vscode.ExtensionContext) {
 			await compilerService.compileProto(SupportedLanguages.Python, uri.fsPath);
 			vscode.window.showInformationMessage('Proto file successfully compiled for Python gRPC');
 		} catch (error: any) {
-			vscode.window.showErrorMessage(`Failed to compile proto: ${error.message}`);
+			handleCompilationError(error, 'Python');
 		}
 	});
 
@@ -40,7 +64,7 @@ export function activate(context: vscode.ExtensionContext) {
 			await compilerService.compileProto(SupportedLanguages.Java, uri.fsPath);
 			vscode.window.showInformationMessage('Proto file successfully compiled for Java gRPC');
 		} catch (error: any) {
-			vscode.window.showErrorMessage(`Failed to compile proto: ${error.message}`);
+			handleCompilationError(error, 'Java');
 		}
 	});
 	
@@ -50,7 +74,7 @@ export function activate(context: vscode.ExtensionContext) {
 			await compilerService.compileProto(SupportedLanguages.Ruby, uri.fsPath);
 			vscode.window.showInformationMessage('Proto file successfully compiled for Ruby gRPC');
 		} catch (error: any) {
-			vscode.window.showErrorMessage(`Failed to compile proto: ${error.message}`);
+			handleCompilationError(error, 'Ruby');
 		}
 	});
 
@@ -60,7 +84,7 @@ export function activate(context: vscode.ExtensionContext) {
 			await compilerService.compileProto(SupportedLanguages.Dart, uri.fsPath);
 			vscode.window.showInformationMessage('Proto file successfully compiled for Dart gRPC');
 		} catch (error: any) {
-			vscode.window.showErrorMessage(`Failed to compile proto: ${error.message}`);
+			handleCompilationError(error, 'Dart');
 		}
 	});
 

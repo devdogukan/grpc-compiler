@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 
 export class Logger {
-    private static outputChannel: vscode.OutputChannel = vscode.window.createOutputChannel("Proto Compiler");
+    static outputChannel: vscode.OutputChannel = vscode.window.createOutputChannel("Proto Compiler");
 
     static log(message: string): void {
         const timestamp = new Date().toISOString();
