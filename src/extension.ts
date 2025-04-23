@@ -19,22 +19,18 @@ export function activate(context: vscode.ExtensionContext) {
 	const handleCompilationError = (error: any, language: string): void => {
 		Logger.error(`Failed to compile proto for ${language}`, error);
 		
-		// The error message should already be improved by our ErrorHandler
 		const errorMessage = error instanceof Error ? error.message : String(error);
 		
-		// Show the error message in a more readable format
+		// Show the error message and offer options to view documentation or log
 		vscode.window.showErrorMessage(
-			`Failed to compile proto for ${language}`, 
-			'View Details',
-			'Show Documentation'
+			`${errorMessage}`, 
+			'Show Log',
+			'View Documentation'
 		).then(selection => {
-			if (selection === 'View Details') {
-				// Create and show error output channel
-				const errorChannel = vscode.window.createOutputChannel(`gRPC ${language} Compilation Error`);
-				errorChannel.appendLine(errorMessage);
-				errorChannel.show();
-			} else if (selection === 'Show Documentation') {
-				vscode.env.openExternal(vscode.Uri.parse('https://github.com/devdogukan/grpc-compiler#requirements'));
+			if (selection === 'Show Log') {
+				Logger.outputChannel.show();
+			} else if (selection === 'View Documentation') {
+				vscode.env.openExternal(vscode.Uri.parse('https://grpc-compiler.netlify.app'));
 			}
 		});
 	};

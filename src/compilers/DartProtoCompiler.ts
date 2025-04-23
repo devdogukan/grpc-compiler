@@ -3,8 +3,13 @@ import * as path from "path";
 import * as fs from "fs";
 import { BaseProtoCompiler } from "./BaseProtoCompiler";
 import { Logger } from "../utils/Logger";
+import { SupportedLanguages } from "../constants/SupportedLanguages";
 
 class DartProtoCompiler extends BaseProtoCompiler {
+    constructor(protoPath: string) {
+        super(protoPath, SupportedLanguages.Dart);
+    }
+
     async checkDependencies(): Promise<boolean> {
         Logger.log("Checking dependencies for Dart Proto Compiler...");
 
@@ -85,7 +90,7 @@ class DartProtoCompiler extends BaseProtoCompiler {
             cp.exec(command, { cwd: filePath }, (error, stdout, stderr) => {
                 if (error) {
                     Logger.error(`Dart gRPC compilation failed: ${stderr}`);
-                    reject(this.handleError(stderr || error.message, "Dart"));
+                    reject(this.handleCompilationError(stderr || error.message));
                 } else {
                     Logger.log("Dart protobuf compilation successful.");
                     Logger.log(`stdout: ${stdout}`);

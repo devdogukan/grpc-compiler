@@ -3,8 +3,13 @@ import * as path from "path";
 import * as fs from "fs";
 import { Logger } from "../utils/Logger";
 import { BaseProtoCompiler } from "./BaseProtoCompiler";
+import { SupportedLanguages } from "../constants/SupportedLanguages";
 
 class JavaProtoCompiler extends BaseProtoCompiler {
+    constructor(protoPath: string) {
+        super(protoPath, SupportedLanguages.Java);
+    }
+
     async checkDependencies(): Promise<boolean> {
         Logger.log("Checking dependencies for Go Proto Compiler...");
 
@@ -44,7 +49,7 @@ class JavaProtoCompiler extends BaseProtoCompiler {
                 if (error) {
                     Logger.error("Compilation failed", error);
                     Logger.error(`stderr: ${stderr}`);
-                    reject(this.handleError(stderr || error.message, "Java"));
+                    reject(this.handleCompilationError(stderr || error.message));
                 } else {
                     Logger.log("Compilation successful.");
                     Logger.log(`stdout: ${stdout}`);

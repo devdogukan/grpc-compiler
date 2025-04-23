@@ -2,12 +2,13 @@ import * as cp from "child_process";
 import { BaseProtoCompiler } from "./BaseProtoCompiler";
 import { PlatformHelper } from "../utils/PlatformHelper";
 import { Logger } from "../utils/Logger";
+import { SupportedLanguages } from "../constants/SupportedLanguages";
 
 class PythonProtoCompiler extends BaseProtoCompiler {
     private pythonCmd: string;
 
     constructor(protoPath: string) {
-        super(protoPath);
+        super(protoPath, SupportedLanguages.Python);
         this.pythonCmd = this.getPythonCommand();
         Logger.log(`PythonProtoCompiler initialized with command: ${this.pythonCmd}`);
     }
@@ -33,7 +34,7 @@ class PythonProtoCompiler extends BaseProtoCompiler {
             cp.exec(command, (error, stdout, stderr) => {
                 if (error) {
                     Logger.error(`Compilation failed: ${stderr}`);
-                    reject(this.handleError(stderr || error.message, "Python"));
+                    reject(this.handleCompilationError(stderr || error.message));
                 } else {
                     Logger.log("Python protobuf compilation successful.");
                     Logger.log(`stdout: ${stdout}`);

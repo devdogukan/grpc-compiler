@@ -2,8 +2,13 @@ import * as cp from "child_process";
 import * as path from "path";
 import { BaseProtoCompiler } from "./BaseProtoCompiler";
 import { Logger } from "../utils/Logger";
+import { SupportedLanguages } from "../constants/SupportedLanguages";
 
 class RubyProtoCompiler extends BaseProtoCompiler {
+    constructor(protoPath: string) {
+        super(protoPath, SupportedLanguages.Ruby);
+    }
+
     async checkDependencies(): Promise<boolean> {
         Logger.log("Checking dependencies for Ruby Proto Compiler...");
 
@@ -82,7 +87,7 @@ class RubyProtoCompiler extends BaseProtoCompiler {
                 cp.exec(command, { cwd: filePath }, (error, stdout, stderr) => {
                     if (error) {
                         Logger.error(`Ruby gRPC compilation failed: ${stderr}`);
-                        reject(this.handleError(stderr || error.message, "Ruby"));
+                        reject(this.handleCompilationError(stderr || error.message));
                     } else {
                         Logger.log("Ruby protobuf compilation successful.");
                         Logger.log(`stdout: ${stdout}`);

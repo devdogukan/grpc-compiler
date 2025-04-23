@@ -2,8 +2,13 @@ import * as cp from "child_process";
 import * as path from "path";
 import { BaseProtoCompiler } from "./BaseProtoCompiler";
 import { Logger } from "../utils/Logger";
+import { SupportedLanguages } from "../constants/SupportedLanguages";
 
 class GoProtoCompiler extends BaseProtoCompiler {
+    constructor(protoPath: string) {
+        super(protoPath, SupportedLanguages.Go);
+    }
+
     async checkDependencies(): Promise<boolean> {
         Logger.log("Checking dependencies for Go Proto Compiler...");
 
@@ -55,7 +60,7 @@ class GoProtoCompiler extends BaseProtoCompiler {
                 if (error) {
                     Logger.error("Compilation failed", error);
                     Logger.error(`stderr: ${stderr}`);
-                    reject(this.handleError(stderr || error.message, "Go"));
+                    reject(this.handleCompilationError(stderr || error.message));
                 } else {
                     Logger.log("Compilation successful.");
                     Logger.log(`stdout: ${stdout}`);
