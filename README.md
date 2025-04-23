@@ -320,6 +320,26 @@ This extension currently doesn't have any configurable settings.
 
 See the [CHANGELOG.md](CHANGELOG.md) for release notes details.
 
+## Roadmap and Language Support Status
+
+### Currently Supported Languages
+- ✅ Go - Fully implemented
+- ✅ Python - Fully implemented
+- ✅ Java - Fully implemented
+- ✅ Ruby - Fully implemented
+- ✅ Dart - Fully implemented
+
+### Planned Support
+Languages we're planning to add support for:
+- ⏳ C# / .NET - In development
+- ⏳ C++ - Planned
+- ⏳ Kotlin - Planned
+- ⏳ Node.js - Planned
+- ⏳ Objective-C - Planned
+- ⏳ PHP - Planned
+
+Want to contribute? Feel free to submit a pull request to help implement support for new languages!
+
 ---
 
 **Enjoy!**
