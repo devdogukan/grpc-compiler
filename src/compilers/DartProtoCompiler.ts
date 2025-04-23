@@ -85,7 +85,7 @@ class DartProtoCompiler extends BaseProtoCompiler {
             cp.exec(command, { cwd: filePath }, (error, stdout, stderr) => {
                 if (error) {
                     Logger.error(`Dart gRPC compilation failed: ${stderr}`);
-                    reject(new Error(`Dart gRPC compilation failed. Error: ${stderr || error.message}`));
+                    reject(this.handleError(stderr || error.message, "Dart"));
                 } else {
                     Logger.log("Dart protobuf compilation successful.");
                     Logger.log(`stdout: ${stdout}`);

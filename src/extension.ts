@@ -19,23 +19,24 @@ export function activate(context: vscode.ExtensionContext) {
 	const handleCompilationError = (error: any, language: string): void => {
 		Logger.error(`Failed to compile proto for ${language}`, error);
 		
-		// Check for specific error types to provide helpful messages
-		if (error.message.includes("not installed") || error.message.includes("missing") || error.message.includes("Dependencies")) {
-			// Dependency missing error
-			const detailedMessage = `Failed to compile proto for ${language}: ${error.message}\n\nPlease check that all required dependencies are installed. See README for installation instructions.`;
-			vscode.window.showErrorMessage(detailedMessage, 'Open Documentation').then(selection => {
-				if (selection === 'Open Documentation') {
-					vscode.env.openExternal(vscode.Uri.parse('https://github.com/devdogukan/grpc-compiler#requirements'));
-				}
-			});
-		} else {
-			// Generic compilation error
-			vscode.window.showErrorMessage(`Failed to compile proto for ${language}: ${error.message}`, 'Show Details').then(selection => {
-				if (selection === 'Show Details') {
-					Logger.outputChannel.show();
-				}
-			});
-		}
+		// The error message should already be improved by our ErrorHandler
+		const errorMessage = error instanceof Error ? error.message : String(error);
+		
+		// Show the error message in a more readable format
+		vscode.window.showErrorMessage(
+			`Failed to compile proto for ${language}`, 
+			'View Details',
+			'Show Documentation'
+		).then(selection => {
+			if (selection === 'View Details') {
+				// Create and show error output channel
+				const errorChannel = vscode.window.createOutputChannel(`gRPC ${language} Compilation Error`);
+				errorChannel.appendLine(errorMessage);
+				errorChannel.show();
+			} else if (selection === 'Show Documentation') {
+				vscode.env.openExternal(vscode.Uri.parse('https://github.com/devdogukan/grpc-compiler#requirements'));
+			}
+		});
 	};
 
 	// compile command for Go

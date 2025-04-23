@@ -44,7 +44,7 @@ class JavaProtoCompiler extends BaseProtoCompiler {
                 if (error) {
                     Logger.error("Compilation failed", error);
                     Logger.error(`stderr: ${stderr}`);
-                    reject(new Error(`Compilation error: ${stderr || error.message}`));
+                    reject(this.handleError(stderr || error.message, "Java"));
                 } else {
                     Logger.log("Compilation successful.");
                     Logger.log(`stdout: ${stdout}`);

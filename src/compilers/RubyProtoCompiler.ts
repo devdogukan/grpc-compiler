@@ -82,7 +82,7 @@ class RubyProtoCompiler extends BaseProtoCompiler {
                 cp.exec(command, { cwd: filePath }, (error, stdout, stderr) => {
                     if (error) {
                         Logger.error(`Ruby gRPC compilation failed: ${stderr}`);
-                        reject(new Error(`Ruby gRPC compilation failed. Error: ${stderr || error.message}`));
+                        reject(this.handleError(stderr || error.message, "Ruby"));
                     } else {
                         Logger.log("Ruby protobuf compilation successful.");
                         Logger.log(`stdout: ${stdout}`);

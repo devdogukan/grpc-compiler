@@ -33,7 +33,7 @@ class PythonProtoCompiler extends BaseProtoCompiler {
             cp.exec(command, (error, stdout, stderr) => {
                 if (error) {
                     Logger.error(`Compilation failed: ${stderr}`);
-                    reject(new Error(`Python gRPC compilation failed. Error: ${stderr || error.message}`));
+                    reject(this.handleError(stderr || error.message, "Python"));
                 } else {
                     Logger.log("Python protobuf compilation successful.");
                     Logger.log(`stdout: ${stdout}`);
