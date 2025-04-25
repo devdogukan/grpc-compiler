@@ -4,7 +4,7 @@
   "description": "Compile .proto files for gRPC",
   "version": "0.3.0",
   "engines": {
-    "vscode": "^1.98.0"
+    "vscode": "^1.92.0"
   },
   "author": {
     "name": "devdogukan"
