@@ -1,5 +1,14 @@
 # Change Log
 
+## [0.4.0] - 2025-04-25
+### Updated
+- VSCode engine version downgraded to 1.92.0 to support older versions of VSCode
+- Add roadmap and language support status to README
+- Enhance documentation with setup and .proto file structure for Go, Python, Java, Ruby, and Dart
+- Improve generated output descriptions for all languages
+- Centralize and enhance error handling across all supported languages
+- Provide more user-friendly error messages during the compilation process
+
 All notable changes to the "gRPC Compiler" extension will be documented in this file.
 
 ## [0.3.0] - 2025-04-16
